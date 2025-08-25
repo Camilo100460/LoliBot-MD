@@ -6,7 +6,7 @@ let previousCommitUser = '';
 const owner = 'Camilo100460';
 const repo = 'LoliBot-MD';
 
-// Textos fijos en un solo idioma (Español)
+// Textos fijos en Español
 const textos = {
   inicio: "🔎 Revisando actualizaciones del repositorio...",
   actualizacion: [
@@ -48,5 +48,5 @@ const handler = async (m, {conn}) => {
 };
 
 handler.command = /^(actualizacion|actualizaciones)/i;
-handler.rowner = true;
+// ❌ Eliminado: handler.rowner = true; (ahora cualquiera puede usarlo)
 export default handler;
