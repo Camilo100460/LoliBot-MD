@@ -1,39 +1,52 @@
-import { db } from '../lib/postgres.js';
+import axios from 'axios';
 
-const linkRegex = /https?:\/\/\S+/i;
+let previousCommitSHA = '';
+let previousCommitMessage = '';
+let previousCommitUser = ''; 
+const owner = 'Camilo100460';
+const repo = 'LoliBot-MD';
 
-export async function before(m, { conn }) {
-if (!m.isGroup || !m.originalText) return; 
-const userTag = `@${m.sender.split('@')[0]}`;
-const bang = m.key.id;
-const delet = m.key.participant || m.sender;
+// Textos fijos en un solo idioma (Español)
+const textos = {
+  inicio: "🔎 Revisando actualizaciones del repositorio...",
+  actualizacion: [
+    "📌 Nueva actualización detectada:",
+    "📝 Mensaje:",
+    "👤 Autor:"
+  ],
+  error: "⚠️ No se pudo obtener la información del repositorio."
+};
 
-try {
-const res = await db.query('SELECT antilink2 FROM group_settings WHERE group_id = $1', [m.chat]);
-const config = res.rows[0];
-if (!config || !config.antilink2) return;
-} catch (e) {
-console.error(e);
-return;
+async function checkRepoUpdates(conn, m) {
+  try {
+    const response = await axios.get(`https://api.github.com/repos/${owner}/${repo}/commits?per_page=1`);
+    const {sha, commit: {message}, html_url, author: { login } } = response.data[0];
+
+    if (sha !== previousCommitSHA || message !== previousCommitMessage) {
+      previousCommitSHA = sha;
+      previousCommitMessage = message;
+      previousCommitUser = login;
+
+      conn.sendMessage(m.chat, {
+        text: `${textos.actualizacion[0]} ${html_url}\n${textos.actualizacion[1]} ${message}\n${textos.actualizacion[2]} ${login}`
+      }, {quoted: m});
+    }
+  } catch (error) {
+    console.error(error);
+    m.reply(textos.error);
+  }
 }
 
-const isLinkDetected = linkRegex.test(m.originalText);
-if (!isLinkDetected) return;
-const metadata = await conn.groupMetadata(m.chat);
-const botId = conn.user?.id?.replace(/:\d+@/, "@");
-const isBotAdmin = metadata.participants.some(p => p.id === botId && p.admin);
-const isSenderAdmin = metadata.participants.some(p => p.id === m.sender && p.admin);
+const handler = async (m, {conn}) => {
+  conn.sendMessage(m.chat, {text: textos.inicio}, {quoted: m});  
 
-if (isSenderAdmin || m.fromMe) return;
-if (!isBotAdmin) {
-return await conn.sendMessage(m.chat, { text: `*「 ANTILINK DETECTADO 」*\n\n${userTag}, enviaste un link pero no puedo eliminarte porque no soy admin.`, mentions: [m.sender] }, { quoted: m });
-}
+  // Ejecutar solo una vez el intervalo
+  if (!global.checkingUpdates) {
+    global.checkingUpdates = true;
+    setInterval(() => checkRepoUpdates(conn, m), 5 * 60 * 1000); // cada 5 minutos
+  }
+};
 
-await conn.sendMessage(m.chat, { text: `*「 ANTILINK DETECTADO 」*\n\n${userTag}, rompiste las reglas del grupo y serás eliminado.`, mentions: [m.sender] }, { quoted: m });
-try {
-await conn.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: false, id: bang, participant: delet }});
-await conn.groupParticipantsUpdate(m.chat, [m.sender], 'remove');
-} catch (err) {
-console.error(err);
-}
-}
+handler.command = /^(actualizacion|actualizaciones)/i;
+handler.rowner = true;
+export default handler;
