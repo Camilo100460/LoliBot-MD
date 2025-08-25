@@ -22,7 +22,7 @@ const listaLocal = localAudios.map(v => `* 🔊  _${v}_`).join('\n');
 
 let str = `\`Hola ${taguser} 💖彡\`
 
-\`<MENU DE AUDIOS/>\`
+\`<MENU DE AUDIO000000S/>\`
 > Escribe las palabras/frases tal como estan, no hace falta poner ningun prefijo (#, ., *, etc) 
 
 ${listaGlobal} ${listaLocal.length > 0 ? `\n\n---\n\n\`<LISTA LOCAL/>\`\n\n${listaLocal}` : ''}
