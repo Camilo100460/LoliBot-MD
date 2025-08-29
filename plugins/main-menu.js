@@ -3,15 +3,6 @@ import moment from 'moment-timezone'
 const cooldowns = new Map()
 const COOLDOWN_DURATION = 180000
 
-const tags = {
-  main: 'ℹ️ INFOBOT',
-  downloader: '🚀 DESCARGAS',
-  game: '👾 JUEGOS',
-  sticker: '🧧 STICKER',
-  tools: '🔧 HERRAMIENTAS',
-  owner: '👑 OWNER'
-}
-
 const defaultMenu = {
   before: `「 %wm 」
 
@@ -26,23 +17,10 @@ Hola 👋🏻 *%name*
 
 *• Usuarios registrados:* %toUserReg de %toUsers
 `.trimStart(),
-  header: '`<[ %category ]>`',
-  body: ' %cmd %islimit %isPremium',
-  footer: `\n`,
   after: ''
 }
 
-// 📌 Lista fija de comandos
-const comandosFijos = [
-  { help: ['menu', 'help', 'allmenu'], tags: ['main'], limit: false, premium: false },
-  { help: ['play', 'ytmp3', 'ytmp4'], tags: ['downloader'], limit: true, premium: false },
-  { help: ['tictactoe', 'ppt'], tags: ['game'], limit: false, premium: false },
-  { help: ['sticker', 's'], tags: ['sticker'], limit: true, premium: false },
-  { help: ['toimg', 'tomp3'], tags: ['tools'], limit: false, premium: false },
-  { help: ['owner'], tags: ['owner'], limit: false, premium: true },
-]
-
-const handler = async (m, { conn, usedPrefix: _p, args }) => {
+const handler = async (m, { conn, usedPrefix: _p }) => {
   const chatId = m.key?.remoteJid;
   const now = Date.now();
   const chatData = cooldowns.get(chatId) || { lastUsed: 0, menuMessage: null };
@@ -74,28 +52,7 @@ const handler = async (m, { conn, usedPrefix: _p, args }) => {
   const tipo = conn === global.conn ? 'Bot Oficial' : 'Sub Bot';
   let botOfc = `*• Bot:* ${nombreBot} (${tipo})`
 
-  const help = comandosFijos;
-
-  const categoryRequested = args[0]?.toLowerCase();
-  const validTags = categoryRequested && tags[categoryRequested] ? [categoryRequested] : Object.keys(tags);
-  let text = defaultMenu.before;
-
-  for (const tag of validTags) {
-    const comandos = help.filter(menu => menu.tags && menu.tags.includes(tag) && menu.help);
-    if (!comandos.length) continue;
-
-    text += '\n' + defaultMenu.header.replace(/%category/g, tags[tag]) + '\n';
-    for (const plugin of comandos) {
-      for (const helpCmd of plugin.help) {
-        text += defaultMenu.body
-          .replace(/%cmd/g, plugin.prefix ? helpCmd : _p + helpCmd)
-          .replace(/%islimit/g, plugin.limit ? '(💎)' : '')
-          .replace(/%isPremium/g, plugin.premium ? '(💵)' : '') + '\n';
-      }
-    }
-    text += defaultMenu.footer;
-  }
-  text += defaultMenu.after;
+  let text = defaultMenu.before + defaultMenu.after;
 
   const replace = {
     '%': '%', p: _p, name,
