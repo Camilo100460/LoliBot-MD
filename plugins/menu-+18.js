@@ -5,6 +5,7 @@ const COOLDOWN_DURATION = 180000
 
 const defaultMenu = {
   before: `
+╭══ • ❀ • ══╮
 
 📜 *MENÚ DE COMANDOS*
 
@@ -29,8 +30,9 @@ const defaultMenu = {
 👩 .girls (💎)  
 🔥 .porno (💎)  
 👗 .trapito (💎)  
-👗 .trap (💎)    
+👗 .trap (💎)   
 
+╰══ • ❀ • ══╯
 
 `.trimStart(),
   after: ''
@@ -84,7 +86,7 @@ const handler = async (m, { conn }) => {
 
 handler.help = ['menu']
 handler.tags = ['main']
-handler.command = /^(menu|help|allmenu|menú)$/i
+handler.command = /^(menu18|help18|allmenu18|menú18)$/i
 export default handler
 
 const clockString = ms => {
