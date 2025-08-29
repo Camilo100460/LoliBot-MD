@@ -1,85 +1,123 @@
-import yts from 'yt-search'
-import fetch from 'node-fetch'
+import fetch from 'node-fetch';
+import yts from 'yt-search';
+import ytdl from 'ytdl-core';
 
-let handler = async (m, { conn, args, text, usedPrefix, command }) => {
-  if (!text) return m.reply(`❗ Ingresa el nombre de la canción o video\n\nEjemplo: ${usedPrefix + command} emilia 420`)
+const userCaptions = new Map();
+const userRequests = {};
 
-  // Buscar en YouTube
-  const result = await search(args.join(' '))
+const handler = async (m, { conn, command, args, text, usedPrefix }) => {
+  if (!text) return m.reply(`*🤔 Que está buscando? 🤔*\n*Ingrese el nombre de la canción o video*\n\n*Ejemplo:*\n${usedPrefix + command} emilia 420`);
 
-  const info = `
-🎶 *Título:* ${result.title}
-⌛ *Duración:* ${result.duration.timestamp}
-👁️ *Vistas:* ${formatNumber(result.views)}
-👤 *Autor:* ${result.author.name}
-🔗 *URL:* ${result.url}
-`.trim()
+  const tipoDescarga = command === 'play' || command === 'musica' ? 'audio' : 
+                       command === 'play2' || command === 'video' ? 'video' : 
+                       command === 'play3' ? 'audio (documento)' : 
+                       command === 'play4' ? 'video (documento)' : '';
 
-  await conn.sendMessage(m.chat, { image: { url: result.thumbnail }, caption: info }, { quoted: m })
+  if (userRequests[m.sender]) return await conn.reply(m.chat, `⏳ Hey @${m.sender.split('@')[0]} espera, ya estás descargando algo 🙄`, userCaptions.get(m.sender) || m);
+  userRequests[m.sender] = true;
 
-  if (command === 'play') {
-    try {
-      // Usar API FGMods primero
-      let apiUrl = `https://api-fgmods.ddns.net/api/downloader/ytmp3?url=${result.url}&apikey=fg-dylux`
-      let res = await fetch(apiUrl)
-      let json = await res.json()
-      if (!json.result?.download) throw new Error("FGMods falló")
-      
-      await conn.sendMessage(m.chat, { audio: { url: json.result.download }, mimetype: "audio/mpeg", fileName: `${result.title}.mp3` }, { quoted: m })
-    } catch (e) {
-      console.error(e)
-      // Respaldo con Neoxr
-      try {
-        let apiUrl = `https://api.neoxr.my.id/api/youtube?url=${result.url}&type=audio&quality=128kbps&apikey=5VC9rvNx`
-        let res = await fetch(apiUrl)
-        let json = await res.json()
-        if (!json.data?.url) throw new Error("Neoxr falló")
-        
-        await conn.sendMessage(m.chat, { audio: { url: json.data.url }, mimetype: "audio/mpeg", fileName: `${result.title}.mp3` }, { quoted: m })
-      } catch (err) {
-        console.error(err)
-        m.reply("❌ No se pudo descargar el audio.")
-      }
+  try {
+    // 🔎 Buscar en YouTube
+    const yt_play = await search(args.join(' '));
+    if (!yt_play || yt_play.length === 0) {
+      delete userRequests[m.sender];
+      return m.reply("❌ No encontré resultados en YouTube.");
     }
-  }
 
-  if (command === 'play2') {
-    try {
-      let apiUrl = `https://api-fgmods.ddns.net/api/downloader/ytmp4?url=${result.url}&apikey=fg-dylux`
-      let res = await fetch(apiUrl)
-      let json = await res.json()
-      if (!json.result?.dl_url) throw new Error("FGMods falló")
+    const video = yt_play[0];
 
-      await conn.sendMessage(m.chat, { video: { url: json.result.dl_url }, mimetype: "video/mp4", fileName: `${result.title}.mp4` }, { quoted: m })
-    } catch (e) {
-      console.error(e)
-      // Respaldo con Neoxr
-      try {
-        let apiUrl = `https://api.neoxr.my.id/api/youtube?url=${result.url}&type=video&quality=720p&apikey=5VC9rvNx`
-        let res = await fetch(apiUrl)
-        let json = await res.json()
-        if (!json.data?.url) throw new Error("Neoxr falló")
+    const PlayText = await conn.sendMessage(m.chat, { 
+      text: `${video.title}
+*⇄ㅤ     ◁   ㅤ  ❚❚ㅤ     ▷ㅤ     ↻*
 
-        await conn.sendMessage(m.chat, { video: { url: json.data.url }, mimetype: "video/mp4", fileName: `${result.title}.mp4` }, { quoted: m })
-      } catch (err) {
-        console.error(err)
-        m.reply("❌ No se pudo descargar el video.")
-      }
+*⏰ Duración:* ${secondString(video.duration.seconds)}
+*👉🏻 Aguarde un momento en lo que envío su ${tipoDescarga}*`,  
+      contextInfo:{  
+        externalAdReply: {  
+          title: video.title,   
+          body: "YouTube Downloader",
+          thumbnailUrl: video.thumbnail, 
+          sourceUrl: video.url
+        }
+      }}, { quoted: m });
+
+    userCaptions.set(m.sender, PlayText);
+
+    // --- AUDIO ---
+    if (command === 'play' || command === 'musica') {
+      const stream = ytdl(video.url, { filter: 'audioonly', quality: 'lowestaudio' });
+      await conn.sendMessage(m.chat, { 
+        audio: { stream }, 
+        mimetype: 'audio/mpeg', 
+        fileName: `${video.title}.mp3` 
+      }, { quoted: m });
     }
+
+    // --- VIDEO ---
+    if (command === 'play2' || command === 'video') {
+      const stream = ytdl(video.url, { filter: 'videoandaudio', quality: 'lowest' });
+      await conn.sendMessage(m.chat, { 
+        video: { stream }, 
+        mimetype: 'video/mp4',
+        fileName: `${video.title}.mp4`,
+        caption: `🔰 Aquí está tu video \n🔥 Título: ${video.title}`,
+        thumbnail: video.thumbnail 
+      }, { quoted: m });
+    }
+
+    // --- AUDIO COMO DOCUMENTO ---
+    if (command === 'play3' || command === 'playdoc') {
+      const stream = ytdl(video.url, { filter: 'audioonly', quality: 'lowestaudio' });
+      await conn.sendMessage(m.chat, { 
+        document: { stream }, 
+        mimetype: 'audio/mpeg', 
+        fileName: `${video.title}.mp3` 
+      }, { quoted: m });
+    }
+
+    // --- VIDEO COMO DOCUMENTO ---
+    if (command === 'play4' || command === 'playdoc2') {
+      const stream = ytdl(video.url, { filter: 'videoandaudio', quality: 'lowest' });
+      await conn.sendMessage(m.chat, { 
+        document: { stream }, 
+        mimetype: 'video/mp4',
+        fileName: `${video.title}.mp4`,
+        caption: `🔰 Título: ${video.title}`,
+        thumbnail: video.thumbnail 
+      }, { quoted: m });
+    }
+
+  } catch (error) {
+    console.error(error);
+    m.react("❌️")
+    m.reply("❌ Ocurrió un error al descargar.");
+  } finally {
+    delete userRequests[m.sender]; 
   }
 }
 
-handler.help = ['play23', 'play2']
-handler.tags = ['downloader']
-handler.command = ['play23', 'play2']
+handler.help = ['play', 'play2', 'play3', 'play4'];
+handler.tags = ['downloader'];
+handler.command = ['playplus'];
+handler.register = false;
+export default handler;
 
-export default handler
-
+// 🔎 Función de búsqueda en YouTube
 async function search(query, options = {}) {
-  const search = await yts.search({ query, hl: 'es', gl: 'ES', ...options })
-  return search.videos[0]
+  const search = await yts.search({query, hl: 'es', gl: 'ES', ...options});
+  return search.videos;
 }
 
-function formatNumber(num) {
-  return num.toLocaleString()
+// 🕒 Duración en texto
+function secondString(seconds) {
+  seconds = Number(seconds);
+  const d = Math.floor(seconds / (3600 * 24));
+  const h = Math.floor((seconds % (3600 * 24)) / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = Math.floor(seconds % 60);
+  const dDisplay = d > 0 ? d + (d == 1 ? ' día, ' : ' días, ') : '';
+  const hDisplay = h > 0 ? h + (h == 1 ? ' hora, ' : ' horas, ') : '';
+  const mDisplay = m > 0 ? m + (m == 1 ? ' minuto, ' : ' minutos, ') : '';
+  const sDisplay = s > 0 ? s + (s == 1 ? ' segundo' : ' segundos') : '';
+  return dDisplay + hDisplay + mDisplay + sDisplay;
 }
