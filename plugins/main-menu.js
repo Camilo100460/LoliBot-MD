@@ -8,14 +8,14 @@ const defaultMenu = {
 
 📜 *Menú de comandos:*
 
-🎵 ${usedPrefix}menuaudios
-🍂 ${usedPrefix}menufreefire
-📖 ${usedPrefix}labiblia
-🤖 ${usedPrefix}infobot
-💻 ${usedPrefix}script
-🎮 ${usedPrefix}menugames
-📲 ${usedPrefix}menuapps
-🔍 ${usedPrefix}menubuscadores
+🎵 %pmenuaudios
+🍂 %pmenufreefire
+📖 %plabiblia
+🤖 %pinfobot
+💻 %pscript
+🎮 %pmenugames
+📲 %pmenuapps
+🔍 %pmenubuscadores
 
 `.trimStart(),
   after: ''
