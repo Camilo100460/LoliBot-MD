@@ -38,7 +38,7 @@ const handler = async (m, { conn, command, args, text, usedPrefix }) => {
 00:00 ───────●─── 04:55
 ㅤ           ◁ㅤ     ❚❚     ㅤ▷ ㅤㅤ↻  ♡
 
-*📤 Un momento, preparando el  ${tipoDescarga}*`,  
+*📤 Un momento, preparando el*`,  
 contextInfo:{  
   forwardedNewsletterMessageInfo: { 
     newsletterJid: '0029VaahTuq1yT2H09LVe60W@newsletter', // tu canal
