@@ -32,13 +32,6 @@ before: `「 %wm 」
 
 Hola 👋🏻 *%name*
 
-*• Fecha:* %fecha
-*• Hora:* %hora (🇦🇷) 
-*• Usuario:* %totalreg
-*• Tiempo activos:* %muptime
-*• Tu limite:* %limit
-%botOfc
-
 *• Usuario registrados:* %toUserReg de %toUsers
 
 Unirte a nuestro canal de WhatsApp y informarte de todas la novedades/Actualizaciones del bot y mas
