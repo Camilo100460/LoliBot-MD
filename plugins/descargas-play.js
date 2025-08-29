@@ -32,9 +32,13 @@ const handler = async (m, { conn, command, args, text, usedPrefix }) => {
     }
     ytplay2 = ytplay2.all?.[0] || ytplay2.videos?.[0] || ytplay2;
 
-    const PlayText = await conn.sendMessage(m.chat, { text: `*${yt_play[0].title}*
-    
-◂◂　     ❚❚　     ▸▸ 　↻
+    const PlayText = await conn.sendMessage(m.chat, { text: `    
+𝗡𝗼𝘄 𝗽𝗹𝗮𝘆𝗶𝗻𝗴:
+
+"*${yt_play[0].title}*" 
+
+00:00 ───────●─── 04:55
+ㅤ◁ㅤ    ❚❚    ㅤ▷ ㅤㅤ↻  ♡
 
 *📤 Un momento, preparando el envío… ${tipoDescarga}*`,  
 contextInfo:{  
