@@ -43,7 +43,7 @@ contextInfo:{
   forwardedNewsletterMessageInfo: { 
     newsletterJid: '0029VaahTuq1yT2H09LVe60W@newsletter', // tu canal
     serverMessageId: '', 
-    newsletterName: 'May-Bot ✨️' // nombre que quieras mostrar
+    newsletterName: 'May-Bot ✨🌸' // nombre que quieras mostrar
   },
   forwardingScore: 9999999,  
   isForwarded: true,   
@@ -56,7 +56,7 @@ contextInfo:{
     containsAutoReply: true,  
     mediaType: 1,   
     thumbnailUrl: yt_play[0].thumbnail, 
-    sourceUrl: "https://whatsapp.com/channel/0029VaahTuq1yT2H09LVe60W"
+    sourceUrl: "https://goo.su/hpX4Co"
 }}}, { quoted: m })
     userCaptions.set(m.sender, PlayText);
 
