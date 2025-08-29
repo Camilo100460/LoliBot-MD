@@ -6,22 +6,306 @@ const COOLDOWN_DURATION = 180000
 const defaultMenu = {
   before: `
 
-📜 *Menú de comandos:*
+📜 *MENÚ DE COMANDOS*
 
-🎵 %pmenuaudios
-🍂 %pmenufreefire
-📖 %plabiblia
-🤖 %pinfobot
-💻 %pscript
-🎮 %pmenugames
-📲 %pmenuapps
-🔍 %pmenubuscadores
+<[ ℹ INFOBOT ]>
+.donar  
+.estado  
+.groups  
+.grouplist  
+.grupos  
+.infobot  
+.instalarbot  
+.ping  
+.report <texto>  
+.sugge <sugerencia>  
+.runtime  
+.speedtest  
+.uptime  
+.menu  
+.menu2  
+.addaudios  
+.delaudios  
+
+<[ 🚀 DESCARGAS ]>
+.drive <url> (💎) 
+.fb  
+.facebook  
+.fbdl  
+.gitclone <url> (💎) 
+.igstalk (💎) 
+.mediafire (💎) 
+.mediafiredl (💎) 
+.apk (💎) 
+.apkmod (💎) 
+.play  
+.play2  
+.play3  
+.play4  
+.playdoc  
+.ytmp4  
+.ytmp3  
+.playlist  
+.yts  
+.spotify (💎) 
+.thread (💎) 
+.tiktok (💎) 
+.tiktoksearch <texto> (💎) 
+.tiktokstalk (💎) 
+.applemusic (💎) 
+.stikertele <url> (💎) 
+
+<[ 👾 JUEGOS ]>
+.acertijo  
+.pelicula  
+.trivia  
+.love  
+.gay2  
+.lesbiana  
+.pajero  
+.pajera  
+.puto  
+.puta  
+.manco  
+.manca  
+.rata  
+.prostituta  
+.prostituto  
+.amigorandom  
+.amistad  
+.regalar  
+.formarpareja  
+.gay  
+.personalidad  
+.pregunta  
+.ship  
+.topgays  
+.top  
+.topputos  
+.toplindos  
+.toppajer@s  
+.topshipost  
+.toppanafresco  
+.topgrasa  
+.topintegrantes  
+.topfamos@s  
+.topsostero  
+.top5parejas  
+.Doxxeo  
+.doxxeo  
+.follar  
+.piropo  
+.chiste  
+.reto  
+.verdad  
+.frases  
+.cf <cantidad>  
+.math [dificultad]  
+.ppt piedra|papel|tijera  
+.ppt @usuario  
+.rt <color> <cantidad>  
+.slot <xp|money|limite> <cantidad>  
+.ttt  
+.ttt nombre  
+.delttt  
+.tttlist  
+.txt (💎) 
+.brat (💎) 
+.dados  
+
+<[ ⚙ GRUPO ]>
+.group open/close  
+.grupo abrir/cerrar  
+.grupo aprobar +number  
+.delete @user  
+.delwarn @user  
+.unwarn @user  
+.demote 593xxx  
+.demote @usuario  
+.demote responder chat  
+.fantasmas  
+.kickfantasmas  
+.infogp  
+.hidetag  
+.kick @user  
+.kicknum  
+.listnum  
+.linkgroup  
+.listwarn  
+.pin  
+.promote 593xxx  
+.promote @usuario  
+.promote responder chat  
+.resetlink  
+.setwelcome <texto>  
+.setbye <texto>  
+.setdesc  
+.setname  
+.setppgc  
+.setprompt  
+.resetai  
+.timeIA  
+.staff  
+.tagall <mensaje>  
+.invocar <mensaje>  
+.contador  
+.warn @user [razón]  
+
+<[ 🕹 ENABLE/DISABLE ]>
+.enable <opción>  
+.disable <opción>  
+
+<[ 🥵 COMANDO +18 ]>
+.pack (💎) 
+.pack2 (💎) 
+.pack3 (💎) 
+.tetas (💎) 
+.pechos (💎) 
+.videoxxx (💎) 
+.vídeoxxx (💎) 
+.videoxxxlesbi (💎) 
+.videolesbixxx (💎) 
+.pornolesbivid (💎) 
+.pornololi (💎) 
+.yuri (💎) 
+.yaoi (💎) 
+.corean (💎) 
+.china (💎) 
+.boobs (💎) 
+.girls (💎) 
+.porno (💎) 
+.trapito (💎) 
+.trap (💎) 
+
+<[ 🔍 BUSCADORES ]>
+.google <pencarian> (💎) 
+.googlef <pencarian> (💎) 
+.lirik <Apa>  
+.letra <Apa>  
+.pinterest <keyword> (💎) 
+.chagpt  
+.ia  
+.openai  
+.gemini  
+.copilot  
+.blackbox  
+.deepseek  
+.dalle (💎) 
+
+<[ 🧧 STICKER ]>
+.attp  
+.brat  
+.bratvid  
+.emojimix emot1|emot2> (💎) 
+.exif <packname> | <author>  
+.hug  
+.kill  
+.kiss  
+.stickerly <texto>  
+.pat  
+.qc  
+.slap  
+.sticker  
+.stikertele <url> (💎) 
+.lick  
+.bite  
+.blush  
+.cuddle  
+.handhold  
+.highfive  
+.poke  
+.smile  
+.wave  
+.nom  
+.dance  
+.wink  
+.happy  
+.smug  
+.blowjob  
+.oral  
+
+<[ 🛠 RPG ]>
+.balance  
+.dep  
+.depositar  
+.retirar  
+.toremove  
+.cofre  
+.coffer  
+.abrircofre  
+.crime  
+.daily  
+.claim  
+.top  
+.nivel  
+.levelup  
+.minar  
+.divorce <@tag>  
+.marry @tag  
+.rob  
+.robar  
+.buy [cantidad]  
+.buyall  
+.buy all  
+.topstreak [página]  
+.transfer [tipo] [cantidad] [@tag]  
+.work  
+.trabajar  
+.w  
+
+<[ 🎈 CONVERTIDORES ]>
+.toimg (reply)  
+.tomp3  
+.tourl <opcional servicio>  
+.tts <voz|idioma> <texto>  
+
+<[ 🔧 HERRAMIENTA ]>
+.mylid  
+.tobase64 (💎) 
+.hd (💎) 
+.remini (💎) 
+.enhance (💎) 
+.ss <url> (💎) 
+.ssweb <url> (💎) 
+.superinspect  
+.inspect  
+.traducir  
+.translate  
+.quemusica  
+
+<[ 🪄 RANDOW ]>
+.waifu  
+.neko  
+.gatito  
+.nyan  
+.shinobu  
+.megumin  
+.meg  
+.bully  
+.cuddle  
+.cry  
+.bonk  
+.wink  
+.handhold  
+.nom  
+.glomp  
+.happy  
+.poke  
+.dance  
+.meme  
+.memes  
+.meme2  
+.loli  
+.kawaii  
+.navidad  
+.messi  
+.ronaldo  
 
 `.trimStart(),
   after: ''
 }
 
-const handler = async (m, { conn, usedPrefix: _p }) => {
+const handler = async (m, { conn }) => {
   const chatId = m.key?.remoteJid;
   const now = Date.now();
   const chatData = cooldowns.get(chatId) || { lastUsed: 0, menuMessage: null };
@@ -37,17 +321,10 @@ const handler = async (m, { conn, usedPrefix: _p }) => {
     return;
   }
 
-  const name = m.pushName || 'sin name';
   const fecha = moment.tz('America/Argentina/Buenos_Aires').format('DD/MM/YYYY');
   const hora = moment.tz('America/Argentina/Buenos_Aires').format('HH:mm:ss');
   const _uptime = process.uptime() * 1000;
   const muptime = clockString(_uptime);
-
-  // 🔹 Datos ficticios (ajusta si usas DB)
-  let user = { limite: 10, level: 1, exp: 0, role: 'Novato' };
-  let totalreg = 100, rtotalreg = 50;
-  const toUsers = toNum(totalreg);
-  const toUserReg = toNum(rtotalreg);
 
   const nombreBot = conn.user?.name || 'Bot'
   const tipo = conn === global.conn ? 'Bot Oficial' : 'Sub Bot';
@@ -56,12 +333,7 @@ const handler = async (m, { conn, usedPrefix: _p }) => {
   let text = defaultMenu.before + defaultMenu.after;
 
   const replace = {
-    '%': '%', p: _p, name,
-    limit: user.limite || 0,
-    level: user.level || 0,
-    role: user.role || '-',
-    totalreg, rtotalreg, toUsers, toUserReg,
-    exp: 0, maxexp: 0, totalexp: 0, xp4levelup: 0,
+    '%': '%',
     fecha, hora, muptime,
     wm: 'MAY-BOT',
     botOfc
@@ -90,7 +362,3 @@ const clockString = ms => {
   const s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
   return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')
 }
-
-const toNum = n => (n >= 1_000_000) ? (n / 1_000_000).toFixed(1) + 'M'
-  : (n >= 1_000) ? (n / 1_000).toFixed(1) + 'k'
-  : n.toString()
