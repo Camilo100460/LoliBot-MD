@@ -1,90 +1,138 @@
-const handler = async (m, { conn, usedPrefix }) => {
-  try {
-    const username = '@' + m.sender.split('@')[0];
-    if (usedPrefix == 'a' || usedPrefix == 'A') return;
+import moment from 'moment-timezone'
 
-    const more = String.fromCharCode(8206);
-    const readMore = more.repeat(4001);
+const cooldowns = new Map()
+const COOLDOWN_DURATION = 180000
 
-    const d = new Date(new Date().getTime() + 3600000);
-    const week = d.toLocaleDateString('es-ES', { weekday: 'long' });
-    const date = d.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
-
-    const _uptime = process.uptime() * 1000;
-    const uptime = clockString(_uptime);
-
-    // Base de datos (ajústalo según uses Postgres o JSON)
-    const rtotalreg = Object.values(global.db.data.users).filter(user => user.registered == true).length;
-    const rtotal = Object.keys(global.db.data.users).length || '0';
-
-    // Información del usuario
-    let user = global.db.data.users[m.sender];
-    let exp = user?.exp || 0;
-    let limit = user?.limit || 0;
-    let level = user?.level || 0;
-    let role = user?.role || 'Nuevo';
-    let money = user?.money || 0;
-    let joincount = user?.joincount || 0;
-
-    // Encabezado
-    const header = `
-🔮 𝙈𝘼𝙔-𝘽𝙊𝙏 🔮
-
-📌 Hola, ${username}
-
-📅 *Fecha:* ${week}, ${date}
-⏱️ *Uptime:* ${uptime}
-📊 *Usuarios:* ${rtotal} (Registrados: ${rtotalreg})
-
-───────────────
-👤 *Tu Perfil*:
-- Nivel: ${level}
-- Exp: ${exp}
-- Rol: ${role}
-- Límite: ${limit}
-- Dinero: ${money}
-- Tokens: ${joincount}
-───────────────
-${readMore}
-`.trim();
-
-    // Menú fijo
-    const comandos = `
-📜 *Menú de comandos:*
-
-🎵 ${usedPrefix}menuaudios
-🍂 ${usedPrefix}menufreefire
-📖 ${usedPrefix}labiblia
-🤖 ${usedPrefix}infobot
-💻 ${usedPrefix}script
-🎮 ${usedPrefix}menugames
-📲 ${usedPrefix}menuapps
-🔍 ${usedPrefix}menubuscadores
-`.trim();
-
-    const texto = `${header}\n${comandos}`;
-
-    // Imagen
-    const pp = global.imagen1 || 'https://i.imgur.com/xyz.jpg';
-
-    await conn.sendMessage(
-      m.chat,
-      { image: { url: pp }, caption: texto, mentions: [m.sender] },
-      { quoted: m }
-    );
-  } catch (e) {
-    await m.reply(`❌ Error al mostrar el menú: ${e.message}`);
-  }
-};
-
-handler.help = ['menu'];
-handler.tags = ['info'];
-handler.command = /^(menu|help|comandos|commands|cmd|cmds)$/i;
-export default handler;
-
-function clockString(ms) {
-  const h = isNaN(ms) ? '--' : Math.floor(ms / 3600000);
-  const m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60;
-  const s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60;
-  return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':');
+const tags = {
+  main: 'ℹ️ INFOBOT',
+  downloader: '🚀 DESCARGAS',
+  game: '👾 JUEGOS',
+  sticker: '🧧 STICKER',
+  tools: '🔧 HERRAMIENTAS',
+  owner: '👑 OWNER'
 }
+
+const defaultMenu = {
+  before: `「 %wm 」
+
+Hola 👋🏻 *%name*
+
+*• Fecha:* %fecha
+*• Hora:* %hora 
+*• Usuarios:* %totalreg
+*• Tiempo activos:* %muptime
+*• Tu limite:* %limit
+%botOfc
+
+*• Usuarios registrados:* %toUserReg de %toUsers
+`.trimStart(),
+  header: '`<[ %category ]>`',
+  body: ' %cmd %islimit %isPremium',
+  footer: `\n`,
+  after: ''
+}
+
+// 📌 Lista fija de comandos
+const comandosFijos = [
+  { help: ['menu', 'help', 'allmenu'], tags: ['main'], limit: false, premium: false },
+  { help: ['play', 'ytmp3', 'ytmp4'], tags: ['downloader'], limit: true, premium: false },
+  { help: ['tictactoe', 'ppt'], tags: ['game'], limit: false, premium: false },
+  { help: ['sticker', 's'], tags: ['sticker'], limit: true, premium: false },
+  { help: ['toimg', 'tomp3'], tags: ['tools'], limit: false, premium: false },
+  { help: ['owner'], tags: ['owner'], limit: false, premium: true },
+]
+
+const handler = async (m, { conn, usedPrefix: _p, args }) => {
+  const chatId = m.key?.remoteJid;
+  const now = Date.now();
+  const chatData = cooldowns.get(chatId) || { lastUsed: 0, menuMessage: null };
+  const timeLeft = COOLDOWN_DURATION - (now - chatData.lastUsed);
+
+  if (timeLeft > 0) {
+    try {
+      const senderTag = m.sender ? `@${m.sender.split('@')[0]}` : '@usuario';
+      await conn.reply(chatId, `⚠️ Hey ${senderTag}, ahí está el menú 🙄\n> Solo se enviará cada 3 minutos para evitar spam. 👆`, chatData.menuMessage || m);
+    } catch (err) {
+      return;
+    }
+    return;
+  }
+
+  const name = m.pushName || 'sin name';
+  const fecha = moment.tz('America/Argentina/Buenos_Aires').format('DD/MM/YYYY');
+  const hora = moment.tz('America/Argentina/Buenos_Aires').format('HH:mm:ss');
+  const _uptime = process.uptime() * 1000;
+  const muptime = clockString(_uptime);
+
+  // 🔹 Datos ficticios (ajusta si usas DB)
+  let user = { limite: 10, level: 1, exp: 0, role: 'Novato' };
+  let totalreg = 100, rtotalreg = 50;
+  const toUsers = toNum(totalreg);
+  const toUserReg = toNum(rtotalreg);
+
+  const nombreBot = conn.user?.name || 'Bot'
+  const tipo = conn === global.conn ? 'Bot Oficial' : 'Sub Bot';
+  let botOfc = `*• Bot:* ${nombreBot} (${tipo})`
+
+  const help = comandosFijos;
+
+  const categoryRequested = args[0]?.toLowerCase();
+  const validTags = categoryRequested && tags[categoryRequested] ? [categoryRequested] : Object.keys(tags);
+  let text = defaultMenu.before;
+
+  for (const tag of validTags) {
+    const comandos = help.filter(menu => menu.tags && menu.tags.includes(tag) && menu.help);
+    if (!comandos.length) continue;
+
+    text += '\n' + defaultMenu.header.replace(/%category/g, tags[tag]) + '\n';
+    for (const plugin of comandos) {
+      for (const helpCmd of plugin.help) {
+        text += defaultMenu.body
+          .replace(/%cmd/g, plugin.prefix ? helpCmd : _p + helpCmd)
+          .replace(/%islimit/g, plugin.limit ? '(💎)' : '')
+          .replace(/%isPremium/g, plugin.premium ? '(💵)' : '') + '\n';
+      }
+    }
+    text += defaultMenu.footer;
+  }
+  text += defaultMenu.after;
+
+  const replace = {
+    '%': '%', p: _p, name,
+    limit: user.limite || 0,
+    level: user.level || 0,
+    role: user.role || '-',
+    totalreg, rtotalreg, toUsers, toUserReg,
+    exp: 0, maxexp: 0, totalexp: 0, xp4levelup: 0,
+    fecha, hora, muptime,
+    wm: 'MAY-BOT',
+    botOfc
+  };
+
+  text = String(text).replace(new RegExp(`%(${Object.keys(replace).join('|')})`, 'g'), (_, key) => replace[key] ?? '');
+
+  try {
+    const menuMessage = await conn.sendMessage(chatId, { text, mentions: await conn.parseMention(text) }, { quoted: m });
+    cooldowns.set(chatId, { lastUsed: now, menuMessage: menuMessage })
+    m.react('🙌');
+  } catch (err) {
+    m.react('❌')
+    console.error(err);
+  }
+}
+
+handler.help = ['menu']
+handler.tags = ['main']
+handler.command = /^(menu|help|allmenu|menú)$/i
+export default handler
+
+const clockString = ms => {
+  const h = isNaN(ms) ? '--' : Math.floor(ms / 3600000)
+  const m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
+  const s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
+  return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')
+}
+
+const toNum = n => (n >= 1_000_000) ? (n / 1_000_000).toFixed(1) + 'M'
+  : (n >= 1_000) ? (n / 1_000).toFixed(1) + 'k'
+  : n.toString()
