@@ -84,7 +84,7 @@ delete userRequests[m.sender];
 handler.help = ['applemusic'];
 handler.tags = ['downloader'];
 handler.command = /^(applemusic)$/i;
-handler.register = true;
+handler.register = false;
 handler.limit = 1;
 
 export default handler;
