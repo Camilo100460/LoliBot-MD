@@ -40,22 +40,23 @@ const handler = async (m, { conn, command, args, text, usedPrefix }) => {
 
 *📤 Un momento, preparando el  ${tipoDescarga}*`,  
 contextInfo:{  
-forwardedNewsletterMessageInfo: { 
-newsletterJid: '120363305025805187@newsletter', 
-serverMessageId: '', 
-newsletterName: 'LoliBot ✨️' },
-forwardingScore: 9999999,  
-isForwarded: true,   
-mentionedJid: null,  
-externalAdReply: {  
-showAdAttribution: false,  
-renderLargerThumbnail: false,  
-title: yt_play[0].title,   
-body: "LoliBot",
-containsAutoReply: true,  
-mediaType: 1,   
-thumbnailUrl: yt_play[0].thumbnail, 
-sourceUrl: "skyultraplus.com"
+  forwardedNewsletterMessageInfo: { 
+    newsletterJid: '0029VaahTuq1yT2H09LVe60W@newsletter', // tu canal
+    serverMessageId: '', 
+    newsletterName: 'May-Bot ✨️' // nombre que quieras mostrar
+  },
+  forwardingScore: 9999999,  
+  isForwarded: true,   
+  mentionedJid: null,  
+  externalAdReply: {  
+    showAdAttribution: false,  
+    renderLargerThumbnail: false,  
+    title: yt_play[0].title,   
+    body: "May-Bot",  
+    containsAutoReply: true,  
+    mediaType: 1,   
+    thumbnailUrl: yt_play[0].thumbnail, 
+    sourceUrl: "https://whatsapp.com/channel/0029VaahTuq1yT2H09LVe60W"
 }}}, { quoted: m })
     userCaptions.set(m.sender, PlayText);
 
