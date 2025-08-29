@@ -53,5 +53,4 @@ sourceUrl: "https://skyultraplus.com"
 handler.help = ['menu2'];
 handler.tags = ['main'];
 handler.command = /^(menu2|audios|menú2|memu2|menuaudio|menuaudios|memuaudios|memuaudio|audios|audio)$/i;
-handler.register = true;
 export default handler;
