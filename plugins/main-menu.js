@@ -4,18 +4,19 @@ const cooldowns = new Map()
 const COOLDOWN_DURATION = 180000
 
 const defaultMenu = {
-  before: `「 %wm 」
+  before: `
 
-Hola 👋🏻 *%name*
+📜 *Menú de comandos:*
 
-*• Fecha:* %fecha
-*• Hora:* %hora 
-*• Usuarios:* %totalreg
-*• Tiempo activos:* %muptime
-*• Tu limite:* %limit
-%botOfc
+🎵 ${usedPrefix}menuaudios
+🍂 ${usedPrefix}menufreefire
+📖 ${usedPrefix}labiblia
+🤖 ${usedPrefix}infobot
+💻 ${usedPrefix}script
+🎮 ${usedPrefix}menugames
+📲 ${usedPrefix}menuapps
+🔍 ${usedPrefix}menubuscadores
 
-*• Usuarios registrados:* %toUserReg de %toUsers
 `.trimStart(),
   after: ''
 }
