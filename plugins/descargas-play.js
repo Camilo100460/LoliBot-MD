@@ -32,11 +32,11 @@ const handler = async (m, { conn, command, args, text, usedPrefix }) => {
     }
     ytplay2 = ytplay2.all?.[0] || ytplay2.videos?.[0] || ytplay2;
 
-    const PlayText = await conn.sendMessage(m.chat, { text: `${yt_play[0].title}
-*⇄ㅤ     ◁   ㅤ  ❚❚ㅤ     ▷ㅤ     ↻*
+    const PlayText = await conn.sendMessage(m.chat, { text: `*${yt_play[0].title}*
+    
+◂◂　     ❚❚　     ▸▸ 　↻
 
-*⏰ Duración:* ${secondString(yt_play[0].duration.seconds)}
-*👉🏻Aguarde un momento en lo que envío su ${tipoDescarga}*`,  
+*📤 Un momento, preparando el envío… ${tipoDescarga}*`,  
 contextInfo:{  
 forwardedNewsletterMessageInfo: { 
 newsletterJid: '120363305025805187@newsletter', 
