@@ -6,8 +6,8 @@ import axios from 'axios';
 import { savetube } from '../lib/yt-savetube.js'
 import { ogmp3 } from '../lib/youtubedl.js'; 
 
-const LimitAud = 725 * 1024 * 1024; // 725MB
-const LimitVid = 425 * 1024 * 1024; // 425MB
+const LimitAud = 20 * 1024 * 1024; // 725MB
+const LimitVid = 50 * 1024 * 1024; // 425MB
 const youtubeRegexID = /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]{11})/;
 const userCaptions = new Map();
 const userRequests = {};
