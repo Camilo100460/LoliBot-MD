@@ -36,7 +36,7 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
   }
 };
 
-handler.help = ['play', 'play2'];
+handler.help = ['play43', 'play2'];
 handler.tags = ['downloader'];
 handler.command = ['play23', 'play2'];
 
