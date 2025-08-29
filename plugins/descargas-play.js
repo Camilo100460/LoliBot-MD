@@ -35,7 +35,6 @@ const handler = async (m, { conn, command, args, text, usedPrefix }) => {
     const PlayText = await conn.sendMessage(m.chat, { text: `    
 
 "*${yt_play[0].title}*" 
-
 00:00 ───────●─── 04:55
 ㅤ           ◁ㅤ     ❚❚     ㅤ▷ ㅤㅤ↻  ♡
 
