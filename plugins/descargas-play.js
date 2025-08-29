@@ -38,9 +38,9 @@ const handler = async (m, { conn, command, args, text, usedPrefix }) => {
 "*${yt_play[0].title}*" 
 
 00:00 ───────●─── 04:55
-ㅤ◁ㅤ    ❚❚    ㅤ▷ ㅤㅤ↻  ♡
+ㅤ    ◁ㅤ     ❚❚     ㅤ▷ ㅤㅤ↻  ♡
 
-*📤 Un momento, preparando el envío… ${tipoDescarga}*`,  
+*📤 Un momento, preparando el  ${tipoDescarga}*`,  
 contextInfo:{  
 forwardedNewsletterMessageInfo: { 
 newsletterJid: '120363305025805187@newsletter', 
