@@ -1,6 +1,10 @@
 import moment from 'moment-timezone'
 
-// Lista de menús posibles (todos incluyen lugar para hora y color)
+// Guardar última hora y color globalmente
+let ultimaHora = "--"
+let ultimoColor = "--"
+
+// Lista de menús posibles (todos incluyen hora y color)
 const menuOptions = [
   `
 ╭───┄ °❀° ┄───╮
@@ -35,16 +39,12 @@ Color: %colorLista
 const handler = async (m, { conn }) => {
   const chatId = m.key?.remoteJid;
 
-  // Valores por defecto
-  let horaLista = "--"
-  let colorLista = "--"
-
-  // Si el mensaje viene en formato .lista/hora/color → extraerlos
+  // Si el mensaje empieza con .lista → actualizar valores
   if (m.text && m.text.startsWith(".lista/")) {
     const parts = m.text.split("/")
     if (parts.length >= 3) {
-      horaLista = parts[1]?.trim() || "--"
-      colorLista = parts[2]?.trim() || "--"
+      ultimaHora = parts[1]?.trim() || "--"
+      ultimoColor = parts[2]?.trim() || "--"
     }
   }
 
@@ -66,8 +66,8 @@ const handler = async (m, { conn }) => {
     fecha, hora, muptime,
     wm: 'MAY-BOT',
     botOfc,
-    horaLista,
-    colorLista
+    horaLista: ultimaHora,
+    colorLista: ultimoColor
   };
 
   text = String(text).replace(
@@ -86,7 +86,8 @@ const handler = async (m, { conn }) => {
 
 handler.help = ['menu', 'lista']
 handler.tags = ['main']
-handler.command = /^(menu|help|allmenu|menú|lista)$/i
+// Regex ajustada: acepta "menu", "help", "allmenu", "menú", "lista" y cualquier cosa que empiece con ".lista"
+handler.command = /^(menu|help|allmenu|menú|lista|\.lista.*)$/i
 export default handler
 
 const clockString = ms => {
