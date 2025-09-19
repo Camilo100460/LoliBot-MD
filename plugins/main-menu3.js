@@ -8,8 +8,8 @@ const menus = [
                          
 _*LISTA DE VS 16 VS 16*_
 
-* | HORA: %nombre
-* | VESTIMENTA: %edad
+⏰ | *HORA:* %nombre
+🥋 | *VESTIMENTA:* %edad
 
 ▫𝐄𝐒𝐂𝐔𝐀𝐃𝐑𝐀 1▫
 
@@ -48,8 +48,8 @@ _*LISTA DE VS 16 VS 16*_
                          
 _*LISTA DE VS 16 VS 16*_
 
-* | HORA: %nombre
-* | VESTIMENTA: %edad
+⏰ | *HORA:* %nombre
+🥋 | *VESTIMENTA:* %edad
 
 ▫𝐄𝐒𝐂𝐔𝐀𝐃𝐑𝐀 1▫
 
@@ -88,8 +88,8 @@ _*LISTA DE VS 16 VS 16*_
                          
 _*LISTA DE VS 16 VS 16*_
 
-* | HORA: %nombre
-* | VESTIMENTA: %edad
+⏰ | *HORA:* %nombre
+🥋 | *VESTIMENTA:* %edad
 
 ▫𝐄𝐒𝐂𝐔𝐀𝐃𝐑𝐀 1▫
 
@@ -128,8 +128,8 @@ _*LISTA DE VS 16 VS 16*_
                          
 _*LISTA DE VS 16 VS 16*_
 
-* | HORA: %nombre
-* | VESTIMENTA: %edad
+⏰ | *HORA:* %nombre
+🥋 | *VESTIMENTA:* %edad
 
 ▫𝐄𝐒𝐂𝐔𝐀𝐃𝐑𝐀 1▫
 
