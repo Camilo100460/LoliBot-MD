@@ -4,37 +4,161 @@ import moment from 'moment-timezone'
 const menus = [
   {
     before: `
-Nombre: %nombre
-Edad: %edad
+┌─── •✧    🦅   ✧• ───┐
+                         
+_*LISTA DE VS 16 VS 16*_
 
-╰───┄ °❀° ┄───╯
+* | HORA: %nombre
+* | VESTIMENTA: %edad
+
+▫𝐄𝐒𝐂𝐔𝐀𝐃𝐑𝐀 1▫
+
+🦅 | 
+*   | 
+*   | 
+*   |
+
+▫𝐄𝐒𝐂𝐔𝐀𝐃𝐑𝐀 2▫
+
+🦅 | 
+*   | 
+*   | 
+*   | 
+
+▫𝐄𝐒𝐂𝐔𝐀𝐃𝐑𝐀 3▫
+
+🦅 | 
+*   | 
+*   | 
+*   | 
+
+▫𝐄𝐒𝐂𝐔𝐀𝐃𝐑𝐀 4▫
+
+🦅 | 
+*   | 
+*   | 
+*   | 
+
 `.trimStart(),
     after: ''
   },
   {
     before: `
-🌸 Datos del usuario 🌸
-• Nombre → %nombre
-• Edad → %edad
-╰───────────────╯
+┌─── •✧    🐉   ✧• ───┐
+                         
+_*LISTA DE VS 16 VS 16*_
+
+* | HORA: %nombre
+* | VESTIMENTA: %edad
+
+▫𝐄𝐒𝐂𝐔𝐀𝐃𝐑𝐀 1▫
+
+🐲 | 
+*   | 
+*   | 
+*   |
+
+▫𝐄𝐒𝐂𝐔𝐀𝐃𝐑𝐀 2▫
+
+🐲 | 
+*   | 
+*   | 
+*   | 
+
+▫𝐄𝐒𝐂𝐔𝐀𝐃𝐑𝐀 3▫
+
+🐲 | 
+*   | 
+*   | 
+*   | 
+
+▫𝐄𝐒𝐂𝐔𝐀𝐃𝐑𝐀 4▫
+
+🐲 | 
+*   | 
+*   | 
+*   | 
+
 `.trimStart(),
     after: ''
   },
   {
     before: `
-⚡ Información ⚡
-👤 %nombre
-🎂 %edad años
-╰───☆───╯
+┌─── •✧    🐺   ✧• ───┐
+                         
+_*LISTA DE VS 16 VS 16*_
+
+* | HORA: %nombre
+* | VESTIMENTA: %edad
+
+▫𝐄𝐒𝐂𝐔𝐀𝐃𝐑𝐀 1▫
+
+🐺 | 
+*   | 
+*   | 
+*   |
+
+▫𝐄𝐒𝐂𝐔𝐀𝐃𝐑𝐀 2▫
+
+🐺 | 
+*   | 
+*   | 
+*   | 
+
+▫𝐄𝐒𝐂𝐔𝐀𝐃𝐑𝐀 3▫
+
+🐺 | 
+*   | 
+*   | 
+*   | 
+
+▫𝐄𝐒𝐂𝐔𝐀𝐃𝐑𝐀 4▫
+
+🐺 | 
+*   | 
+*   | 
+*   | 
+
 `.trimStart(),
     after: ''
   },
   {
     before: `
-✦───────────────✦
-Nombre >> %nombre
-Edad >> %edad
-✦───────────────✦
+┌─── •✧    🐊   ✧• ───┐
+                         
+_*LISTA DE VS 16 VS 16*_
+
+* | HORA: %nombre
+* | VESTIMENTA: %edad
+
+▫𝐄𝐒𝐂𝐔𝐀𝐃𝐑𝐀 1▫
+
+🐊 | 
+*   | 
+*   | 
+*   |
+
+▫𝐄𝐒𝐂𝐔𝐀𝐃𝐑𝐀 2▫
+
+🐊 | 
+*   | 
+*   | 
+*   | 
+
+▫𝐄𝐒𝐂𝐔𝐀𝐃𝐑𝐀 3▫
+
+🐊 | 
+*   | 
+*   | 
+*   | 
+
+▫𝐄𝐒𝐂𝐔𝐀𝐃𝐑𝐀 4▫
+
+🐊 | 
+*   | 
+*   | 
+*   | 
+
 `.trimStart(),
     after: ''
   }
