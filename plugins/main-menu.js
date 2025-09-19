@@ -9,25 +9,10 @@ const defaultMenu = {
 
 📜 *MENÚ DE COMANDOS*
 
-*<[ ℹ INFOBOT ]>*
+*<[ 🕹 ENABLE/DISABLE ]>*
 
-💰 .donar  
-📊 .estado  
-👥 .groups  
-📋 .grouplist  
-👥 .grupos  
-ℹ️ .infobot  
-🤖 .instalarbot  
-📡 .ping  
-📝 .report <texto>  
-💡 .sugge <sugerencia>  
-⏱️ .runtime  
-⚡ .speedtest  
-⏳ .uptime  
-📜 .menu  
-📑 .menu2  
-🎵 .addaudios  
-🗑️ .delaudios  
+✅ .enable <opción>  
+❌ .disable <opción> 
 
 *<[ 🚀 DESCARGAS ]>*
 
@@ -57,65 +42,6 @@ const defaultMenu = {
 👤 .tiktokstalk (💎)  
 🍏 .applemusic (💎)  
 🎭 .stikertele <url> (💎)  
-
-*<[ 👾 JUEGOS ]>*
-
-❓ .acertijo  
-🎬 .pelicula  
-🧠 .trivia  
-❤️ .love  
-🌈 .gay2  
-🌈 .lesbiana  
-🙈 .pajero  
-🙈 .pajera  
-🤡 .puto  
-🤡 .puta  
-🎮 .manco  
-🎮 .manca  
-🐀 .rata  
-💋 .prostituta  
-💋 .prostituto  
-👤 .amigorandom  
-🤝 .amistad  
-🎁 .regalar  
-💞 .formarpareja  
-🌈 .gay  
-🔮 .personalidad  
-❓ .pregunta  
-💘 .ship  
-🏳️‍🌈 .topgays  
-🏆 .top  
-🤡 .topputos  
-😍 .toplindos  
-🔥 .toppajer@s  
-🤣 .topshipost  
-🧉 .toppanafresco  
-🍔 .topgrasa  
-👥 .topintegrantes  
-⭐ .topfamos@s  
-🥩 .topsostero  
-💑 .top5parejas  
-🕵️ .Doxxeo  
-🕵️ .doxxeo  
-🔞 .follar  
-💌 .piropo  
-😂 .chiste  
-🎯 .reto  
-✔️ .verdad  
-📖 .frases  
-🎲 .cf <cantidad>  
-🧮 .math [dificultad]  
-✂️ .ppt piedra|papel|tijera  
-✂️ .ppt @usuario  
-🎨 .rt <color> <cantidad>  
-🎰 .slot <xp|money|limite> <cantidad>  
-⭕ .ttt  
-⭕ .ttt nombre  
-❌ .delttt  
-📃 .tttlist  
-📜 .txt (💎)  
-😈 .brat (💎)  
-🎲 .dados  
 
 *<[ ⚙ GRUPO ]>*
 
@@ -154,28 +80,7 @@ const defaultMenu = {
 📢 .tagall <mensaje>  
 📢 .invocar <mensaje>  
 📊 .contador  
-⚠️ .warn @user [razón]  
-
-*<[ 🕹 ENABLE/DISABLE ]>*
-
-✅ .enable <opción>  
-❌ .disable <opción>  
-
-*<[ 🔍 BUSCADORES ]>*
-
-🔎 .google <texto> (💎)  
-🔎 .googlef <texto> (💎)  
-🎶 .lirik <canción>  
-🎶 .letra <canción>  
-📌 .pinterest <keyword> (💎)  
-🤖 .chagpt  
-🤖 .ia  
-🤖 .openai  
-🤖 .gemini  
-🤖 .copilot  
-🤖 .blackbox  
-🤖 .deepseek  
-🎨 .dalle (💎)  
+⚠️ .warn @user [razón]   
 
 *<[ 🧧 STICKER ]>*
 
@@ -210,36 +115,6 @@ const defaultMenu = {
 👄 .blowjob  
 👄 .oral  
 
-*<[ 🛠 RPG ]>*
-
-💰 .balance  
-🏦 .dep  
-🏦 .depositar  
-🏦 .retirar  
-📉 .toremove  
-🎁 .cofre  
-🎁 .coffer  
-🎁 .abrircofre  
-💣 .crime  
-📆 .daily  
-🎁 .claim  
-🏆 .top  
-📈 .nivel  
-⬆️ .levelup  
-⛏️ .minar  
-💔 .divorce <@tag>  
-💍 .marry @tag  
-🦹 .rob  
-🦹 .robar  
-🛒 .buy [cantidad]  
-🛒 .buyall  
-🛒 .buy all  
-🏅 .topstreak [página]  
-💸 .transfer [tipo] [cantidad] [@tag]  
-💼 .work  
-💼 .trabajar  
-⚡ .w  
-
 *<[ 🎈 CONVERTIDORES ]>*
 
 🖼️ .toimg (reply)  
@@ -261,35 +136,6 @@ const defaultMenu = {
 🌐 .traducir  
 🌐 .translate  
 🎶 .quemusica  
-
-*<[ 🪄 RANDOM ]>*
-
-👧 .waifu  
-🐱 .neko  
-🐈 .gatito  
-🐾 .nyan  
-👧 .shinobu  
-👧 .megumin  
-👧 .meg  
-👊 .bully  
-🤗 .cuddle  
-😭 .cry  
-🔨 .bonk  
-😉 .wink  
-🤝 .handhold  
-🍴 .nom  
-🤗 .glomp  
-😃 .happy  
-👉 .poke  
-💃 .dance  
-😂 .meme  
-😂 .memes  
-😂 .meme2  
-👧 .loli  
-😍 .kawaii  
-🎄 .navidad  
-⚽ .messi  
-⚽ .ronaldo  
 
 ╰───┄ °❀° ┄───╯
 `.trimStart(),
