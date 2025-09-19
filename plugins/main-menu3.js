@@ -22,8 +22,8 @@ const handler = async (m, { conn }) => {
 
   // formato esperado: lista/nombre/edad
   const parts = input.split('/');
-  const nombre = parts[1]?.trim() || 'No especificado';
-  const edad = parts[2]?.trim() || 'No especificada';
+  const nombre = parts[1]?.trim() || ''; // vacío si no ponen nada
+  const edad = parts[2]?.trim() || '';   // vacío si no ponen nada
 
   const fecha = moment.tz('America/Argentina/Buenos_Aires').format('DD/MM/YYYY');
   const hora = moment.tz('America/Argentina/Buenos_Aires').format('HH:mm:ss');
