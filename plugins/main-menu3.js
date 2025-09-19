@@ -1,29 +1,58 @@
 import moment from 'moment-timezone'
 
-const defaultMenu = {
-  before: `
+// Array de plantillas posibles
+const menus = [
+  {
+    before: `
 Nombre: %nombre
 Edad: %edad
 
 ╰───┄ °❀° ┄───╯
 `.trimStart(),
-  after: ''
-}
+    after: ''
+  },
+  {
+    before: `
+🌸 Datos del usuario 🌸
+• Nombre → %nombre
+• Edad → %edad
+╰───────────────╯
+`.trimStart(),
+    after: ''
+  },
+  {
+    before: `
+⚡ Información ⚡
+👤 %nombre
+🎂 %edad años
+╰───☆───╯
+`.trimStart(),
+    after: ''
+  },
+  {
+    before: `
+✦───────────────✦
+Nombre >> %nombre
+Edad >> %edad
+✦───────────────✦
+`.trimStart(),
+    after: ''
+  }
+]
 
 const handler = async (m, { conn }) => {
   const chatId = m.key?.remoteJid;
 
-  // --- extracción robusta del texto del mensaje ---
+  // --- extracción del texto del mensaje ---
   let input = (m.text || m.message?.conversation || m.message?.extendedTextMessage?.text || '').toString().trim();
 
-  // quitar prefijos comunes (. o ! al inicio)
   if (input.startsWith('.') || input.startsWith('!')) input = input.slice(1);
   if (input.startsWith('/') && input.toLowerCase().startsWith('/lista')) input = input.slice(1);
 
   // formato esperado: lista/nombre/edad
   const parts = input.split('/');
-  const nombre = parts[1]?.trim() || ''; // vacío si no ponen nada
-  const edad = parts[2]?.trim() || '';   // vacío si no ponen nada
+  const nombre = parts[1]?.trim() || '';
+  const edad = parts[2]?.trim() || '';
 
   const fecha = moment.tz('America/Argentina/Buenos_Aires').format('DD/MM/YYYY');
   const hora = moment.tz('America/Argentina/Buenos_Aires').format('HH:mm:ss');
@@ -34,7 +63,9 @@ const handler = async (m, { conn }) => {
   const tipo = conn === global.conn ? 'Bot Oficial' : 'Sub Bot';
   let botOfc = `*• Bot:* ${nombreBot} (${tipo})`;
 
-  let text = defaultMenu.before + defaultMenu.after;
+  // 🔀 escoger un menú aleatorio
+  const selectedMenu = menus[Math.floor(Math.random() * menus.length)];
+  let text = selectedMenu.before + selectedMenu.after;
 
   const replace = {
     '%': '%',
