@@ -1,112 +1,44 @@
 import moment from 'moment-timezone'
 
-// Guardar última hora y color (global)
-let ultimaHora = "--"
-let ultimoColor = "--"
-
-// Menús con placeholders %horaLista y %colorLista
-const menuOptions = [
-  `
-╭───┄ °❀° ┄───╮
-│   🌸 Menú 1 🌸
-╰───┄ °❀° ┄───╯
-Hora: %horaLista
-Color: %colorLista
-  `,
-  `
-╭─⊰ ❀ ⊱─╮
-│   💎 Menú 2 💎
-╰─⊰ ❀ ⊱─╯
-Hora: %horaLista
-Color: %colorLista
-  `,
-  `
-╔══ ❀•°❀°•❀ ══╗
-   🌙 Menú 3 🌙
-╚══ ❀•°❀°•❀ ══╝
-Hora: %horaLista
-Color: %colorLista
-  `,
-  `
-✦••┈┈┈┈┈┈┈••✦
-     🔥 Menú 4 🔥
-✦••┈┈┈┈┈┈┈••✦
-Hora: %horaLista
-Color: %colorLista
-  `
-]
-
 const handler = async (m, { conn }) => {
-  const chatId = m.key?.remoteJid;
+  const chatId = m.key?.remoteJid
+  const nombreBot = conn.user?.name || 'Bot'
+  const tipo = conn === global.conn ? 'Bot Oficial' : 'Sub Bot'
+  let botOfc = `*• Bot:* ${nombreBot} (${tipo})`
 
-  // Obtener texto real del mensaje (soporta varias estructuras)
-  const body = (typeof m.text === 'string' && m.text.trim().length > 0)
-    ? m.text
-    : (m.message?.conversation
-       || m.message?.extendedTextMessage?.text
-       || m.message?.imageMessage?.caption
-       || m.message?.videoMessage?.caption
-       || ''
-      );
+  // --- Detectamos formato: .lista/hora/color ---
+  const regex = /^\.lista\/([^/]+)\/([^/]+)$/i
+  const match = m.text.match(regex)
 
-  // Intentar extraer .lista/hora/color
-  // Acepta: ".lista/6:00 pm/Blanco" o "lista/6:00 pm/Blanco" (con o sin punto)
-  const listaMatch = body.match(/^\s*\.?lista\/\s*([^\/]+?)\/\s*(.+?)\s*$/i);
-
-  if (listaMatch) {
-    // grupos: 1 => hora, 2 => color
-    ultimaHora = listaMatch[1].trim() || "--";
-    ultimoColor = listaMatch[2].trim() || "--";
-    // (seguimos para enviar el menú inmediatamente)
+  if (!match) {
+    await conn.sendMessage(chatId, { text: `❌ Formato incorrecto.\nUsa: *.lista/6:00 pm/Blanco*` }, { quoted: m })
+    return
   }
 
-  // Datos dinámicos (si los usas en los menús)
-  const fecha = moment.tz('America/Argentina/Buenos_Aires').format('DD/MM/YYYY');
-  const hora = moment.tz('America/Argentina/Buenos_Aires').format('HH:mm:ss');
-  const _uptime = process.uptime() * 1000;
-  const muptime = clockString(_uptime);
+  const hora = match[1].trim()
+  const color = match[2].trim()
 
-  const nombreBot = conn.user?.name || 'Bot';
-  const tipo = conn === global.conn ? 'Bot Oficial' : 'Sub Bot';
-  const botOfc = `*• Bot:* ${nombreBot} (${tipo})`
+  // --- Lista de 4 mensajes aleatorios ---
+  const mensajes = [
+    `╰───┄ °❀° ┄───╯\nHora: *${hora}*\nColor: *${color}*\n${botOfc}`,
+    `🌸 Lista generada 🌸\n> Hora: *${hora}*\n> Color: *${color}*\n${botOfc}`,
+    `✨ Registro creado ✨\nHora asignada: *${hora}*\nColor elegido: *${color}*\n${botOfc}`,
+    `📝 Nueva entrada 📝\n• Hora: *${hora}*\n• Color: *${color}*\n${botOfc}`
+  ]
 
-  // Escoger menu aleatorio
-  let text = menuOptions[Math.floor(Math.random() * menuOptions.length)];
-
-  const replace = {
-    '%': '%',
-    fecha, hora, muptime,
-    wm: 'MAY-BOT',
-    botOfc,
-    horaLista: ultimaHora,
-    colorLista: ultimoColor
-  };
-
-  text = String(text).replace(
-    new RegExp(`%(${Object.keys(replace).join('|')})`, 'g'),
-    (_, key) => replace[key] ?? ''
-  );
+  // Escoger aleatoriamente
+  const mensajeFinal = mensajes[Math.floor(Math.random() * mensajes.length)]
 
   try {
-    await conn.sendMessage(chatId, { text, mentions: await conn.parseMention(text) }, { quoted: m });
-    m.react('🙌');
+    await conn.sendMessage(chatId, { text: mensajeFinal, mentions: await conn.parseMention(mensajeFinal) }, { quoted: m })
+    m.react('✅')
   } catch (err) {
-    m.react('❌');
-    console.error(err);
+    console.error(err)
+    m.react('❌')
   }
 }
 
-// Asegúrate de que el handler capture tanto "menu" como "lista/..." (con o sin punto)
-handler.help = ['menu', 'lista']
+handler.help = ['lista']
 handler.tags = ['main']
-// Esta regex acepta: menu, help, allmenu, menú, lista (solo), .lista/... o lista/...
-handler.command = /^(menu|help|allmenu|menú|lista|\.?lista\/.*)$/i
-
+handler.command = /^\.lista\/.+/i
 export default handler
-
-const clockString = ms => {
-  const h = isNaN(ms) ? '--' : Math.floor(ms / 3600000)
-  const m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
-  const s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
-  return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')
-}
