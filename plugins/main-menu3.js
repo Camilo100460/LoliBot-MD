@@ -1,31 +1,52 @@
 import moment from 'moment-timezone'
 
-// Lista de menús posibles
+// Lista de menús posibles (todos incluyen lugar para hora y color)
 const menuOptions = [
   `
 ╭───┄ °❀° ┄───╮
 │   🌸 Menú 1 🌸
 ╰───┄ °❀° ┄───╯
+Hora: %horaLista
+Color: %colorLista
   `,
   `
 ╭─⊰ ❀ ⊱─╮
 │   💎 Menú 2 💎
 ╰─⊰ ❀ ⊱─╯
+Hora: %horaLista
+Color: %colorLista
   `,
   `
 ╔══ ❀•°❀°•❀ ══╗
    🌙 Menú 3 🌙
 ╚══ ❀•°❀°•❀ ══╝
+Hora: %horaLista
+Color: %colorLista
   `,
   `
 ✦••┈┈┈┈┈┈┈••✦
      🔥 Menú 4 🔥
 ✦••┈┈┈┈┈┈┈••✦
+Hora: %horaLista
+Color: %colorLista
   `
 ]
 
 const handler = async (m, { conn }) => {
   const chatId = m.key?.remoteJid;
+
+  // Valores por defecto
+  let horaLista = "--"
+  let colorLista = "--"
+
+  // Si el mensaje viene en formato .lista/hora/color → extraerlos
+  if (m.text && m.text.startsWith(".lista/")) {
+    const parts = m.text.split("/")
+    if (parts.length >= 3) {
+      horaLista = parts[1]?.trim() || "--"
+      colorLista = parts[2]?.trim() || "--"
+    }
+  }
 
   // Datos dinámicos
   const fecha = moment.tz('America/Argentina/Buenos_Aires').format('DD/MM/YYYY');
@@ -44,7 +65,9 @@ const handler = async (m, { conn }) => {
     '%': '%',
     fecha, hora, muptime,
     wm: 'MAY-BOT',
-    botOfc
+    botOfc,
+    horaLista,
+    colorLista
   };
 
   text = String(text).replace(
@@ -61,9 +84,9 @@ const handler = async (m, { conn }) => {
   }
 }
 
-handler.help = ['menu']
+handler.help = ['menu', 'lista']
 handler.tags = ['main']
-handler.command = /^(lista1|lista2)$/i
+handler.command = /^(menu|help|allmenu|menú|lista)$/i
 export default handler
 
 const clockString = ms => {
@@ -72,3 +95,4 @@ const clockString = ms => {
   const s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
   return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')
 }
+
