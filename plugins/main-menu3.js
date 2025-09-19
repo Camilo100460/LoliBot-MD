@@ -19,12 +19,18 @@ const handler = async (m, { conn }) => {
   const chatData = cooldowns.get(chatId) || { lastUsed: 0, menuMessage: null };
   const timeLeft = COOLDOWN_DURATION - (now - chatData.lastUsed);
 
-  // Sacar argumentos del mensaje
-  const input = m.text?.trim() || ''
-  // formato esperado: .lista/nombre/edad
-  const parts = input.split('/')
-  const nombre = parts[1] || 'No especificado'
-  const edad = parts[2] || 'No especificada'
+  // --- extracción robusta del texto del mensaje ---
+  let input = (m.text || m.message?.conversation || m.message?.extendedTextMessage?.text || '').toString().trim();
+
+  // quitar un prefijo común si lo puso el usuario (., ! o / al inicio)
+  if (input.startsWith('.') || input.startsWith('!')) input = input.slice(1);
+  // si el usuario escribió "/lista/..." quitamos solo la primera barra para no romper el split
+  if (input.startsWith('/') && input.toLowerCase().startsWith('/lista')) input = input.slice(1);
+
+  // formato esperado: lista/nombre/edad  -> parts[0]=='lista' parts[1]=='nombre' parts[2]=='edad'
+  const parts = input.split('/');
+  const nombre = parts[1]?.trim() || 'No especificado';
+  const edad = parts[2]?.trim() || 'No especificada';
 
   if (timeLeft > 0) {
     try {
@@ -60,17 +66,18 @@ const handler = async (m, { conn }) => {
 
   try {
     const menuMessage = await conn.sendMessage(chatId, { text, mentions: await conn.parseMention(text) }, { quoted: m });
-    cooldowns.set(chatId, { lastUsed: now, menuMessage: menuMessage })
-    m.react('🙌');
+    cooldowns.set(chatId, { lastUsed: now, menuMessage })
+    if (m.react) await m.react('🙌');
   } catch (err) {
-    m.react('❌')
+    if (m.react) await m.react('❌')
     console.error(err);
   }
 }
 
 handler.help = ['lista']
 handler.tags = ['main']
-handler.command = /^lista$/i  // aquí el trigger principal
+// Regex que acepta: "lista", ".lista", "lista/juan/18" o ".lista/juan/18"
+handler.command = /^\.?lista(?:\/.*)?$/i
 export default handler
 
 const clockString = ms => {
