@@ -9,54 +9,80 @@ const defaultMenu = {
 
 📜 *MENÚ DE COMANDOS*
 
-*<[ ℹ INFOBOT ]>*
+*<[ 🪄 RANDOM ]>*
 
-💰 .donar  
-📊 .estado  
-👥 .groups  
-📋 .grouplist  
-👥 .grupos  
-ℹ️ .infobot  
-🤖 .instalarbot  
-📡 .ping  
-📝 .report <texto>  
-💡 .sugge <sugerencia>  
-⏱️ .runtime  
-⚡ .speedtest  
-⏳ .uptime  
-📜 .menu  
-📑 .menu2  
-🎵 .addaudios  
-🗑️ .delaudios  
+👧 .waifu  
+🐱 .neko  
+🐈 .gatito  
+🐾 .nyan  
+👧 .shinobu  
+👧 .megumin  
+👧 .meg  
+👊 .bully  
+🤗 .cuddle  
+😭 .cry  
+🔨 .bonk  
+😉 .wink  
+🤝 .handhold  
+🍴 .nom  
+🤗 .glomp  
+😃 .happy  
+👉 .poke  
+💃 .dance  
+😂 .meme  
+😂 .memes  
+😂 .meme2  
+👧 .loli  
+😍 .kawaii  
+🎄 .navidad  
+⚽ .messi  
+⚽ .ronaldo  
 
-*<[ 🚀 DESCARGAS ]>*
+*<[ 🛠 RPG ]>*
 
-🗂️ .drive <url> (💎)  
-📹 .fb  
-📹 .facebook  
-📹 .fbdl  
-🌐 .gitclone <url> (💎)  
-🔍 .igstalk (💎)  
-📦 .mediafire (💎)  
-📦 .mediafiredl (💎)  
-📱 .apk (💎)  
-📱 .apkmod (💎)  
-🎶 .play  
-🎶 .play2  
-🎶 .play3  
-🎶 .play4  
-📄 .playdoc  
-🎬 .ytmp4  
-🎧 .ytmp3  
-🎵 .playlist  
-🔎 .yts  
-🎼 .spotify (💎)  
-🧵 .thread (💎)  
-🎵 .tiktok (💎)  
-🔍 .tiktoksearch <texto> (💎)  
-👤 .tiktokstalk (💎)  
-🍏 .applemusic (💎)  
-🎭 .stikertele <url> (💎)  
+💰 .balance  
+🏦 .dep  
+🏦 .depositar  
+🏦 .retirar  
+📉 .toremove  
+🎁 .cofre  
+🎁 .coffer  
+🎁 .abrircofre  
+💣 .crime  
+📆 .daily  
+🎁 .claim  
+🏆 .top  
+📈 .nivel  
+⬆️ .levelup  
+⛏️ .minar  
+💔 .divorce <@tag>  
+💍 .marry @tag  
+🦹 .rob  
+🦹 .robar  
+🛒 .buy [cantidad]  
+🛒 .buyall  
+🛒 .buy all  
+🏅 .topstreak [página]  
+💸 .transfer [tipo] [cantidad] [@tag]  
+💼 .work  
+💼 .trabajar  
+⚡ .w  
+
+*<[ 🔍 BUSCADORES ]>*
+
+🔎 .google <texto> (💎)  
+🔎 .googlef <texto> (💎)  
+🎶 .lirik <canción>  
+🎶 .letra <canción>  
+📌 .pinterest <keyword> (💎)  
+🤖 .chagpt  
+🤖 .ia  
+🤖 .openai  
+🤖 .gemini  
+🤖 .copilot  
+🤖 .blackbox  
+🤖 .deepseek  
+🎨 .dalle (💎)  
 
 *<[ 👾 JUEGOS ]>*
 
@@ -116,180 +142,6 @@ const defaultMenu = {
 📜 .txt (💎)  
 😈 .brat (💎)  
 🎲 .dados  
-
-*<[ ⚙ GRUPO ]>*
-
-🔓 .group open/close  
-🔓 .grupo abrir/cerrar  
-✅ .grupo aprobar +number  
-🗑️ .delete @user  
-⚠️ .delwarn @user  
-♻️ .unwarn @user  
-⬇️ .demote 593xxx  
-⬇️ .demote @usuario  
-⬇️ .demote responder chat  
-👻 .fantasmas  
-👻 .kickfantasmas  
-ℹ️ .infogp  
-🙈 .hidetag  
-🚪 .kick @user  
-🚪 .kicknum  
-📞 .listnum  
-🔗 .linkgroup  
-⚠️ .listwarn  
-📌 .pin  
-⬆️ .promote 593xxx  
-⬆️ .promote @usuario  
-⬆️ .promote responder chat  
-🔄 .resetlink  
-👋 .setwelcome <texto>  
-👋 .setbye <texto>  
-📄 .setdesc  
-✍️ .setname  
-🖼️ .setppgc  
-🤖 .setprompt  
-🔄 .resetai  
-⏰ .timeIA  
-👑 .staff  
-📢 .tagall <mensaje>  
-📢 .invocar <mensaje>  
-📊 .contador  
-⚠️ .warn @user [razón]  
-
-*<[ 🕹 ENABLE/DISABLE ]>*
-
-✅ .enable <opción>  
-❌ .disable <opción>  
-
-*<[ 🔍 BUSCADORES ]>*
-
-🔎 .google <texto> (💎)  
-🔎 .googlef <texto> (💎)  
-🎶 .lirik <canción>  
-🎶 .letra <canción>  
-📌 .pinterest <keyword> (💎)  
-🤖 .chagpt  
-🤖 .ia  
-🤖 .openai  
-🤖 .gemini  
-🤖 .copilot  
-🤖 .blackbox  
-🤖 .deepseek  
-🎨 .dalle (💎)  
-
-*<[ 🧧 STICKER ]>*
-
-🔤 .attp  
-😈 .brat  
-🎥 .bratvid  
-😃 .emojimix emot1|emot2> (💎)  
-🏷️ .exif <packname> | <author>  
-🤗 .hug  
-🔪 .kill  
-💋 .kiss  
-📄 .stickerly <texto>  
-🤲 .pat  
-💬 .qc  
-👋 .slap  
-🖼️ .sticker  
-🎭 .stikertele <url> (💎)  
-👅 .lick  
-🦷 .bite  
-😊 .blush  
-🤗 .cuddle  
-🤝 .handhold  
-✋ .highfive  
-👉 .poke  
-😁 .smile  
-👋 .wave  
-🍴 .nom  
-💃 .dance  
-😉 .wink  
-😃 .happy  
-😏 .smug  
-👄 .blowjob  
-👄 .oral  
-
-*<[ 🛠 RPG ]>*
-
-💰 .balance  
-🏦 .dep  
-🏦 .depositar  
-🏦 .retirar  
-📉 .toremove  
-🎁 .cofre  
-🎁 .coffer  
-🎁 .abrircofre  
-💣 .crime  
-📆 .daily  
-🎁 .claim  
-🏆 .top  
-📈 .nivel  
-⬆️ .levelup  
-⛏️ .minar  
-💔 .divorce <@tag>  
-💍 .marry @tag  
-🦹 .rob  
-🦹 .robar  
-🛒 .buy [cantidad]  
-🛒 .buyall  
-🛒 .buy all  
-🏅 .topstreak [página]  
-💸 .transfer [tipo] [cantidad] [@tag]  
-💼 .work  
-💼 .trabajar  
-⚡ .w  
-
-*<[ 🎈 CONVERTIDORES ]>*
-
-🖼️ .toimg (reply)  
-🎵 .tomp3  
-🌐 .tourl <opcional servicio>  
-🔊 .tts <voz|idioma> <texto>  
-
-*<[ 🔧 HERRAMIENTA ]>*
-
-🆔 .mylid  
-🔐 .tobase64 (💎)  
-🖼️ .hd (💎)  
-✨ .remini (💎)  
-🔧 .enhance (💎)  
-📸 .ss <url> (💎)  
-📸 .ssweb <url> (💎)  
-🕵️ .superinspect  
-🔍 .inspect  
-🌐 .traducir  
-🌐 .translate  
-🎶 .quemusica  
-
-*<[ 🪄 RANDOM ]>*
-
-👧 .waifu  
-🐱 .neko  
-🐈 .gatito  
-🐾 .nyan  
-👧 .shinobu  
-👧 .megumin  
-👧 .meg  
-👊 .bully  
-🤗 .cuddle  
-😭 .cry  
-🔨 .bonk  
-😉 .wink  
-🤝 .handhold  
-🍴 .nom  
-🤗 .glomp  
-😃 .happy  
-👉 .poke  
-💃 .dance  
-😂 .meme  
-😂 .memes  
-😂 .meme2  
-👧 .loli  
-😍 .kawaii  
-🎄 .navidad  
-⚽ .messi  
-⚽ .ronaldo  
 
 ╰───┄ °❀° ┄───╯
 `.trimStart(),
