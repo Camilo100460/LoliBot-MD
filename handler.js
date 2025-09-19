@@ -95,7 +95,7 @@ newsletterJid: (() => {
   const loli = "120363305025805187@newsletter";
   const otros = ["120363160031023229@newsletter", "120363301598733462@newsletter"];
   return Math.random() < 0.75 ? loli :  otros[Math.floor(Math.random() * otros.length)]})(),
-newsletterName: "LoliBot ✨️"
+newsletterName: "MAY-BOT"
 }}}, { quoted: null })
 } else {
 await conn.sendMessage(id, { text: msg,
@@ -156,7 +156,7 @@ newsletterJid: (() => {
   const loli = "120363305025805187@newsletter";
   const otros = ["120363160031023229@newsletter", "120363301598733462@newsletter"];
   return Math.random() < 0.75 ? loli :  otros[Math.floor(Math.random() * otros.length)]})(),
-newsletterName: "LoliBot ✨️"
+newsletterName: "MAY-BOT"
 }}}, { quoted: null })
 } else {
 await conn.sendMessage(id, { text: msg,
@@ -166,7 +166,7 @@ newsletterJid: (() => {
   const loli = "120363305025805187@newsletter";
   const otros = ["120363160031023229@newsletter", "120363301598733462@newsletter"];
   return Math.random() < 0.75 ? loli :  otros[Math.floor(Math.random() * otros.length)]})(),
-newsletterName: "LoliBot ✨️"
+newsletterName: "MAY-BOT"
 },
 forwardingScore: 9999999,
 isForwarded: true,
@@ -179,7 +179,7 @@ title: "👋 BYE",
 body: "Se fue un gay",
 containsAutoReply: true,
 mediaType: 1,
-sourceUrl: "https://skyultraplus.com"
+sourceUrl: "https"
 }}}, { quoted: null })
 }}
 break
@@ -199,7 +199,7 @@ newsletterJid: (() => {
   const loli = "120363305025805187@newsletter";
   const otros = ["120363160031023229@newsletter", "120363301598733462@newsletter"];
   return Math.random() < 0.75 ? loli :  otros[Math.floor(Math.random() * otros.length)]})(),
-newsletterName: "LoliBot ✨️" },
+newsletterName: "MAY-BOT" },
 forwardingScore: 9999999,  
 isForwarded: true,   
 mentionedJid: [participant, author],
@@ -212,7 +212,7 @@ title: "NUEVO ADMINS 🥳",
 body: "Weon eres admin portante mal 😉",
 containsAutoReply: true,  
 thumbnailUrl: image,
-sourceUrl: "skyultraplus.com"
+sourceUrl: "MAYBOT"
 }}}, { quoted: null })         
 }
 break
@@ -246,7 +246,7 @@ body: "Jjjj Ya no eres admin 😹",
 containsAutoReply: true,  
 mediaType: 1,   
 thumbnailUrl: image,
-sourceUrl: "skyultraplus.com"
+sourceUrl: "MAY-BOT"
 }}}, { quoted: null })            
 }
 break
@@ -295,7 +295,7 @@ newsletterJid: (() => {
   const loli = "120363305025805187@newsletter";
   const otros = ["120363160031023229@newsletter", "120363301598733462@newsletter"];
   return Math.random() < 0.75 ? loli :  otros[Math.floor(Math.random() * otros.length)]})(),
-newsletterName: "LoliBot ✨️",
+newsletterName: "MAY-BOT",
 serverMessageId: 1
 }}
 });
@@ -319,7 +319,7 @@ newsletterJid: (() => {
   const loli = "120363305025805187@newsletter";
   const otros = ["120363160031023229@newsletter", "120363301598733462@newsletter"];
   return Math.random() < 0.75 ? loli :  otros[Math.floor(Math.random() * otros.length)]})(),
-newsletterName: "LoliBot ✨️",
+newsletterName: "MAY-BOT",
 serverMessageId: 1
 }}
 });
@@ -375,7 +375,7 @@ newsletterJid: (() => {
   const loli = "120363305025805187@newsletter";
   const otros = ["120363160031023229@newsletter", "120363301598733462@newsletter"];
   return Math.random() < 0.75 ? loli :  otros[Math.floor(Math.random() * otros.length)]})(),
-newsletterName: "LoliBot ✨️"
+newsletterName: "MAY-BOT"
 }};
 return await conn.sendMessage(chatId, { text, contextInfo }, { quoted: m });
 };
@@ -729,7 +729,7 @@ const res = await db.query('SELECT money FROM usuarios WHERE id = $1', [m.sender
 const money = res.rows[0]?.money ?? 0
 
 if (money < plugin.money) {
-return m.reply("*NO TIENE SUFICIENTES LOLICOINS 🪙*")
+return m.reply("*NO TIENE SUFICIENTES COINS 🪙*")
 }
 
 await db.query('UPDATE usuarios SET money = money - $1 WHERE id = $2', [plugin.money, m.sender])
