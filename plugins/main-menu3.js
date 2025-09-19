@@ -1,8 +1,5 @@
 import moment from 'moment-timezone'
 
-const cooldowns = new Map()
-const COOLDOWN_DURATION = 180000 // 3 minutos
-
 // Lista de menús posibles
 const menuOptions = [
   `
@@ -29,19 +26,6 @@ const menuOptions = [
 
 const handler = async (m, { conn }) => {
   const chatId = m.key?.remoteJid;
-  const now = Date.now();
-  const chatData = cooldowns.get(chatId) || { lastUsed: 0, menuMessage: null };
-  const timeLeft = COOLDOWN_DURATION - (now - chatData.lastUsed);
-
-  if (timeLeft > 0) {
-    try {
-      const senderTag = m.sender ? `@${m.sender.split('@')[0]}` : '@usuario';
-      await conn.reply(chatId, `⚠️ Hey ${senderTag}, ahí está el menú 🙄\n> Solo se enviará cada 3 minutos para evitar spam. 👆`, chatData.menuMessage || m);
-    } catch (err) {
-      return;
-    }
-    return;
-  }
 
   // Datos dinámicos
   const fecha = moment.tz('America/Argentina/Buenos_Aires').format('DD/MM/YYYY');
@@ -63,11 +47,13 @@ const handler = async (m, { conn }) => {
     botOfc
   };
 
-  text = String(text).replace(new RegExp(`%(${Object.keys(replace).join('|')})`, 'g'), (_, key) => replace[key] ?? '');
+  text = String(text).replace(
+    new RegExp(`%(${Object.keys(replace).join('|')})`, 'g'),
+    (_, key) => replace[key] ?? ''
+  );
 
   try {
-    const menuMessage = await conn.sendMessage(chatId, { text, mentions: await conn.parseMention(text) }, { quoted: m });
-    cooldowns.set(chatId, { lastUsed: now, menuMessage: menuMessage })
+    await conn.sendMessage(chatId, { text, mentions: await conn.parseMention(text) }, { quoted: m });
     m.react('🙌');
   } catch (err) {
     m.react('❌')
@@ -77,7 +63,7 @@ const handler = async (m, { conn }) => {
 
 handler.help = ['menu']
 handler.tags = ['main']
-handler.command = /^(lista2|lista1)$/i
+handler.command = /^(lista1|lista2)$/i
 export default handler
 
 const clockString = ms => {
