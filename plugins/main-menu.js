@@ -5,6 +5,7 @@ const COOLDOWN_DURATION = 180000
 
 const defaultMenu = {
   before: `
+╭───┄ °❀° ┄───╮
 
 📜 *MENÚ DE COMANDOS*
 
@@ -290,7 +291,7 @@ const defaultMenu = {
 ⚽ .messi  
 ⚽ .ronaldo  
 
-
+╰───┄ °❀° ┄───╯
 `.trimStart(),
   after: ''
 }
